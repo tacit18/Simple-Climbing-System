@@ -1,5 +1,4 @@
 
-# 粘贴这个配置（方案一的基础版）
 name: Generate TOC
 on:
   push:
