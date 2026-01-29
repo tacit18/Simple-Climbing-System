@@ -1,21 +1,55 @@
-name: Generate TOC
+# .github/workflows/simple-toc.yml
+name: Simple TOC Fix
 on:
-  push:
-    branches: [ main ]
-    paths: [ 'Climbing System Log.md' ]
+  workflow_dispatch:  # 只支持手动触发，避免循环
 
 jobs:
-  generate-toc:
+  toc:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        
+      - name: Manually replace [TOC]
+        run: |
+          # 直接生成目录
+          cat > toc_generator.py << 'EOF'
+          import re
+          
+          with open("Climbing System Log.md", "r", encoding="utf-8") as f:
+              text = f.read()
+          
+          # 提取所有标题
+          toc_items = []
+          for match in re.finditer(r'^(#{1,4})\s+(.+)$', text, re.MULTILINE):
+              level = len(match.group(1))
+              title = match.group(2).strip()
+              indent = "  " * (level - 1)
+              anchor = re.sub(r'[^\w\s-]', '', title.lower())
+              anchor = re.sub(r'[-\s]+', '-', anchor)
+              toc_items.append(f"{indent}- [{title}](#{anchor})")
+          
+          if toc_items:
+              toc = "## 目录\n" + "\n".join(toc_items) + "\n\n---\n\n"
+              # 替换[TOC]
+              new_text = re.sub(r'\[TOC\]|\[\[TOC\]\]', toc, text)
+              with open("Climbing System Log.md", "w", encoding="utf-8") as f:
+                  f.write(new_text)
+              print("✅ 目录已生成")
+          else:
+              print("⚠️ 没有找到标题")
+          EOF
+          
+          python3 toc_generator.py
+          
+      - name: Commit changes
+        run: |
+          git config user.name "TOC Bot"
+          git config user.email "bot@example.com"
+          git add "Climbing System Log.md"
+          git commit -m "docs: manually generate TOC" || echo "No changes"
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          fetch-depth: 0
-      
-      - name: Generate Table of Contents
-        uses: technote-space/toc-generator@v4
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_PATHS: Climbing System Log.md
-          INSERT_AFTER: '^#'
-          COMMIT_MESSAGE: 'docs: auto update TOC'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
