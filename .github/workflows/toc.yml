@@ -2,7 +2,7 @@ name: Generate TOC
 on:
   push:
     branches: [ main ]
-    paths: [ 'README.md' ]
+    paths: [ 'Climbing System Log.md' ]
 
 jobs:
   generate-toc:
