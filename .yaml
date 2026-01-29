@@ -1,0 +1,46 @@
+# .github/workflows/auto-toc.yml
+name: Auto TOC
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**.md'
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  toc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          
+      - name: Generate TOC for Markdown files
+        uses: julb/action-markdown-toc@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          pull_request: true
+          skip_links: false
+          skip_header: false
+          bullet: "-"
+          lowercase: true
+          
+      - name: Create Pull Request
+        if: github.event_name == 'push'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs: auto-generate TOC"
+          title: "📖 Auto-generated Table of Contents"
+          body: |
+            This PR was auto-generated to update the table of contents.
+            
+            Changes:
+            - Updated TOC for modified markdown files
+          branch: auto-toc-update
+          base: main
