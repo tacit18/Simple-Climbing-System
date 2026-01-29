@@ -26,7 +26,7 @@ note:
 
 #### Enable climbing（简单逻辑）
 
-[按下**x键** 或者 **鼠标中键**，**climb行为启动**（屏幕显示“climb action started.”]https://imgur.com/e5jfihG
+[按下**x键** 或者 **鼠标中键**，**climb行为启动**（屏幕显示“climb action started.”）]https://imgur.com/e5jfihG
 
 ##### 静态配置所完成的任务
 
