@@ -73,7 +73,6 @@ Plugins/**/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
-# 匹配任何大小写变体的文件夹
 [Bb]inaries*/
 [Dd]erived[Dd]ata[Cc]ache*/
 [Ii]ntermediate*/
