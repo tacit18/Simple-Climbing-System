@@ -1,1 +1,23 @@
 
+# 粘贴这个配置（方案一的基础版）
+name: Generate TOC
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'README.md' ]
+
+jobs:
+  generate-toc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Generate Table of Contents
+        uses: technote-space/toc-generator@v4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_PATHS: README.md
+          INSERT_AFTER: '^#'
+          COMMIT_MESSAGE: 'docs: auto update TOC'
