@@ -26,23 +26,23 @@ note:
 
 #### Enable climbing（简单逻辑）
 
-按下**“x”键**或者**鼠标中键**，**climb行为启动**（屏幕显示“climb action started.”）
+[按下**“x”键**或者**鼠标中键**，**climb行为启动**（屏幕显示“climb action started.”]https://imgur.com/e5jfihG
 
-![image-20260129172424086](C:\Users\tacit\AppData\Roaming\Typora\typora-user-images\image-20260129172424086.png)
+##### 静态配置所完成的任务
 
-##### 静态配置
+https://imgur.com/BzvdxvT
 
-![image-20260129183909934](C:\Users\tacit\AppData\Roaming\Typora\typora-user-images\image-20260129183909934.png)
+##### 动态响应流程(UE平台输入x后)
 
-##### 动态响应(UE平台输入x后)
-
-![image-20260129185549620](C:\Users\tacit\AppData\Roaming\Typora\typora-user-images\image-20260129185549620.png)
+https://imgur.com/Qm9miot
 
 
 
 ##### <u>2026.1.29 </u>conclusion
 
-![image-20260129192056043](C:\Users\tacit\AppData\Roaming\Typora\typora-user-images\image-20260129192056043.png)
+https://imgur.com/eMs6ige
+
+
 
 ------
 
